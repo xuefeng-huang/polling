@@ -9,6 +9,7 @@ from views import *
 from models import User, Question, Choice, Answer
 
 if __name__ == '__main__':
+    # recreate tables and insert 2 default users
     db.drop_all()
     db.create_all()
     db.session.commit()

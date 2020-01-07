@@ -22,4 +22,4 @@ class Answer(db.Model):
     __tablename__ = 'answers'
     question_id = db.Column(db.Integer, db.ForeignKey('questions.id'), primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
-    answer_id = db.Column(db.Integer, nullable=False)
+    answer_id = db.Column(db.Integer, db.ForeignKey('choices.id'), nullable=False)
