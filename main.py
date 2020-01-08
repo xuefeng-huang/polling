@@ -1,12 +1,9 @@
-from flask import Flask, request, jsonify, make_response
-from flask_sqlalchemy import SQLAlchemy
+from shared import app, db
 
-app = Flask(__name__)
-app.config.from_object('config.Config')
-db = SQLAlchemy(app)
-
-from views import *
-from models import User, Question, Choice, Answer
+from polling_app.views import polling as p
+app.register_blueprint(p)
+# from views import *
+from polling_app.models import User, Question, Choice, Answer
 
 if __name__ == '__main__':
     # recreate tables and insert 2 default users

@@ -1,10 +1,12 @@
-from main import app
-from models import Question, Choice, Answer, User
-from main import db
+from flask import Blueprint
+from .models import Question, Choice, Answer, User
+from shared import db
 from flask import request, jsonify, make_response
 
 
-@app.route('/questions', methods=['POST'])
+polling = Blueprint('polling', __name__)
+
+@polling.route('/questions', methods=['POST'])
 def create_question():
     question_text = request.get_json()['question']
     q = Question(question=question_text)
@@ -14,7 +16,7 @@ def create_question():
     data = {'message': 'Created'}
     return make_response(jsonify(data), 201)
 
-@app.route('/choice', methods=['POST'])
+@polling.route('/choice', methods=['POST'])
 def create_choice():
     question_id = request.get_json()['question_id']
     text = request.get_json()['text']
@@ -26,7 +28,7 @@ def create_choice():
     data = {'message': 'Created'}
     return make_response(jsonify(data), 201)
 
-@app.route('/answer', methods=['POST'])
+@polling.route('/answer', methods=['POST'])
 def save_answer():
     user_id = request.get_json()['user_id']
     question_id = request.get_json()['question_id']
@@ -39,7 +41,7 @@ def save_answer():
     data = {'message': 'Created'}
     return make_response(jsonify(data), 201)
 
-@app.route('/user', methods=['POST'])
+@polling.route('/user', methods=['POST'])
 def create_user():
     user_name = request.get_json()['user_name']
     u = User(username=user_name)
